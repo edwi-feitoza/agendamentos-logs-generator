@@ -1,12 +1,9 @@
 import uuid
-from datetime import datetime
-
 
 class LogGenerator:
-    def generate_log(self, http_method, http_status, latency):
-        date_format = '%d/%b/%Y:%H:%M:%S %z'
+    def generate_log(self, http_method, http_status, latency, log_timestamp, log_request_time):
         log = {
-            'timestamp': datetime.now().isoformat(timespec='milliseconds'),
+            'timestamp': log_timestamp,
             'log_message': {
                 'aws_account_id': '123456789012',
                 'apigw': {
@@ -21,7 +18,7 @@ class LogGenerator:
                 'transaction': {
                     'request': {
                         'request_id': str(uuid.uuid4()),
-                        'request_time': datetime.now().strftime(date_format),
+                        'request_time': log_request_time,
                         'source_ip': '10.0.0.1',
                         'user_agent': 'Jersey/3.1.0 (Apache HttpClient 4.5.12)',
                         'tls_version': 'TLSv1.2',
